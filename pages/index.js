@@ -11,7 +11,11 @@ import Layout from "@/components/layout";
 export default function Home() {
   return (
     <>
-      <Hero />
+      <Hero
+        title="MyBlog"
+        subtitle="site for output"
+        imageOn
+      />
       <Posts />
     </>
   )
