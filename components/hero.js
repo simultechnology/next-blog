@@ -14,7 +14,7 @@ export function Hero({ title, subtitle, imageOn = false }) {
 
 function Decoration(props) {
   return (
-    <div>
+    <div className={styles.flexContainer}>
       {props.children}
     </div>
   )
