@@ -1,19 +1,18 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import Container from "@/components/container";
 import React from 'react'
 import Posts from "./posts";
 import {Hero} from "@/components/hero";
 
 export default function Home() {
   return (
-    <>
+    <Container>
       <Hero
         title="MyBlog"
         subtitle="site for output"
         imageOn
       />
       <Posts />
-    </>
+    </Container>
   )
 }
 
