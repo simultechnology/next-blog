@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Container>
       <Hero
-        title="MyBlog"
+        title="Blog"
         subtitle="site for output"
         imageOn
       />
