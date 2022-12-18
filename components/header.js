@@ -3,7 +3,7 @@ import Logo from '@/components/logo';
 import Nav from '@/components/nav';
 import styles from 'styles/header.module.css';
 
-export function Header() {
+export default function Header() {
   return (
     <header>
       <Container large>

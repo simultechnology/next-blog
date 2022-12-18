@@ -2,7 +2,7 @@ import styles from 'styles/hero.module.css'
 import Image from "next/legacy/image";
 import hero from 'images/hero.png';
 
-export function Hero({ title, subtitle, imageOn = false }) {
+export default function Hero({ title, subtitle, imageOn = false }) {
   return (
     <Decoration>
       <div className={styles.text}>
