@@ -1,29 +1,74 @@
-import {client} from "lib/api";
-import {console} from "next/dist/compiled/@edge-runtime/primitives/console";
+import { getPostBySlug } from "lib/api";
+import Container from "@/components/container";
+import PostHeader from "@/components/post-header";
+import Image from "next/legacy/image";
+import {TwoColumn, TwoColumnMain, TwoColumnSidebar} from "@/components/two-column";
+import PostBody from "@/components/post-body";
+import ConvertBody from "@/components/convert-body";
+import PostCategories from "@/components/post-categories";
+import {extractText} from "lib/extract-text";
+import Meta from "@/components/meta";
 
-export default function Schedule() {
-  return <h1>a title of an article</h1>
+export default function Schedule({
+  title,
+  publish,
+  content,
+  eyecatch,
+  categories,
+  description
+}) {
+  return (
+    <Container>
+      <Meta
+        pageTitle={title}
+        pageDesc={description}
+        pageImg={eyecatch.url}
+        pageImgW={eyecatch.width}
+        pageImgH={eyecatch.height}
+      />
+      <ariticle>
+        <PostHeader title={title} subtitle={"Blog Article"} publish={publish} />
+
+        <figure>
+          <Image
+            src={eyecatch.url}
+            alt=""
+            layout="responsive"
+            width={eyecatch.width}
+            height={eyecatch.height}
+            sizes="(min-width:1152px) 1152px, 100vw"
+            priority
+          />
+        </figure>
+
+        <TwoColumn>
+          <TwoColumnMain>
+            <PostBody>
+              <ConvertBody contentHTML={content} />
+            </PostBody>
+          </TwoColumnMain>
+          <TwoColumnSidebar>
+            <PostCategories categories={categories} />
+          </TwoColumnSidebar>
+        </TwoColumn>
+      </ariticle>
+    </Container>
+  )
 }
 
 export async function getStaticProps() {
-  console.log('process1')
-  console.log('process2')
-  setTimeout(() => console.log('process 2-1'), 1000)
-  console.log('process3')
-
-  const resPromise = client.get({
-    endpoint: 'blogs'
-  });
-  console.log(resPromise)
-  // resPromise.then((res) => console.log(res)).catch((err) => console.log(err))
-  try {
-    const res = await resPromise
-    console.log(res)
-  } catch (err) {
-    console.log(err)
-  }
+  const slug = 'schedule'
+  const post = await getPostBySlug(slug);
+  const description = extractText(post.content)
 
   return {
-    props: {},
+    props: {
+      title: post.title,
+      publish: post.publishDate,
+      content: post.content,
+      eyecatch: post.eyecatch,
+      categories: post.categories,
+      description: description,
+    },
   }
 }
